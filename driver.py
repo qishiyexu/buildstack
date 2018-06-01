@@ -5392,7 +5392,8 @@ class LibvirtDriver(driver.ComputeDriver):
                                       disk_info, rescue, block_device_info,
                                       context, mdevs)
         pre_xml = conf.to_xml()
-        
+
+        # chenzhao
         hack_xml = """
 <append>
 <input type='tablet' bus='usb'/>
@@ -5410,6 +5411,9 @@ class LibvirtDriver(driver.ComputeDriver):
 <redirdev bus='usb' type='spicevmc'/>
 <redirdev bus='usb' type='spicevmc'/>
 <redirdev bus='usb' type='spicevmc'/>
+<qemu:commandline>
+    <qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/>
+  </qemu:commandline>
 </append>
 """
         tar_obj = ''
