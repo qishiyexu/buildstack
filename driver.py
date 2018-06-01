@@ -5415,13 +5415,13 @@ class LibvirtDriver(driver.ComputeDriver):
 </append>
 """
 
-        hack_allow_mc_xml = """
-<domain>
-<qemu:commandline>
-    <qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/>
-</qemu:commandline>       
-</domain>
-"""
+#         hack_allow_mc_xml = """
+# <domain>
+# <qemu:commandline>
+#     <qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/>
+# </qemu:commandline>
+# </domain>
+# """
 
         libvit_obj = xml.dom.minidom.parseString(pre_xml)
         hack_obj = xml.dom.minidom.parseString(hack_xml)
@@ -5429,12 +5429,11 @@ class LibvirtDriver(driver.ComputeDriver):
             if (isinstance(c_lib_obj, xml.dom.minidom.Element) and c_lib_obj.tagName == 'devices'):
                 c_lib_obj.childNodes.extend(hack_obj.childNodes[0].childNodes)
 
-        hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
-        domain_e = libvit_obj.getElementsByTagName('domain')
-        domain_e.appendChild(hack_allow_mc_obj)
+        # hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
+        # domain_e = libvit_obj.getElementsByTagName('domain')
+        # domain_e.appendChild(hack_allow_mc_obj)
 
         new_xml = libvit_obj.toxml()
-        LOG.error('domain e:', domain_e)
 
         LOG.debug('End _get_guest_xml xml=%(new_xml)s',
                   {'xml': new_xml}, instance=instance)
