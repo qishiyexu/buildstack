@@ -5416,9 +5416,11 @@ class LibvirtDriver(driver.ComputeDriver):
 """
 
         hack_allow_mc_xml = """
- <qemu:commandline>
+<domain>
+<qemu:commandline>
     <qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/>
-  </qemu:commandline>       
+</qemu:commandline>       
+</domain>
 """
 
         libvit_obj = xml.dom.minidom.parseString(pre_xml)
