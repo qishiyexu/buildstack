@@ -5411,17 +5411,25 @@ class LibvirtDriver(driver.ComputeDriver):
 <redirdev bus='usb' type='spicevmc'/>
 <redirdev bus='usb' type='spicevmc'/>
 <redirdev bus='usb' type='spicevmc'/>
-<qemu:commandline>
-    <qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/>
-  </qemu:commandline>
+
 </append>
 """
-        tar_obj = ''
+
+        hack_allow_mc_xml = """
+ <qemu:commandline>
+    <qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/>
+  </qemu:commandline>       
+"""
+
         libvit_obj = xml.dom.minidom.parseString(pre_xml)
         hack_obj = xml.dom.minidom.parseString(hack_xml)
         for c_lib_obj in libvit_obj.childNodes[0].childNodes:
             if (isinstance(c_lib_obj, xml.dom.minidom.Element) and c_lib_obj.tagName == 'devices'):
                 c_lib_obj.childNodes.extend(hack_obj.childNodes[0].childNodes)
+
+        hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
+        domain_e = root.getElementsByTagName('domain')
+        domain_e.appendChild(hack_allow_mc_obj)
 
         new_xml = libvit_obj.toxml()
 
