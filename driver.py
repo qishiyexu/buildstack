@@ -5424,7 +5424,8 @@ class LibvirtDriver(driver.ComputeDriver):
 """
 
         libvit_obj = xml.dom.minidom.parseString(pre_xml)
-        libvit_obj.getElementsByTagName('domain')[0].setAttribute('xmlns:qemu', "http://libvirt.org/schemas/domain/qemu/1.0")
+        domain_obj = libvit_obj.getElementsByTagName('domain')[0]
+        domain_obj.setAttribute('xmlns:qemu', "http://libvirt.org/schemas/domain/qemu/1.0")
         hack_obj = xml.dom.minidom.parseString(hack_xml)
         for c_lib_obj in libvit_obj.childNodes[0].childNodes:
             if (isinstance(c_lib_obj, xml.dom.minidom.Element) and c_lib_obj.tagName == 'devices'):
@@ -5435,7 +5436,8 @@ class LibvirtDriver(driver.ComputeDriver):
 
         hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
 
-        libvit_obj.getElementsByTagName('domain').extend(hack_allow_mc_obj.childNodes)
+        for node_obj in hack_allow_mc_obj.childNodes:
+            domain_obj.appendChild(node_obj)
 
         new_xml = libvit_obj.toxml()
         LOG.error(new_xml)
