@@ -5416,11 +5416,11 @@ class LibvirtDriver(driver.ComputeDriver):
 """
 
         hack_allow_mc_xml = """
-<append>
+<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
 <qemu:commandline>
     <qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/>
 </qemu:commandline>
-</append>
+</domain>
 """
 
         libvit_obj = xml.dom.minidom.parseString(pre_xml)
@@ -5429,9 +5429,8 @@ class LibvirtDriver(driver.ComputeDriver):
             if (isinstance(c_lib_obj, xml.dom.minidom.Element) and c_lib_obj.tagName == 'devices'):
                 c_lib_obj.childNodes.extend(hack_obj.childNodes[0].childNodes)
 
-        LOG.error('-----------')
-        LOG.error(hack_obj)
-        LOG.error('-----------')
+        LOG.error('------------------------------------------------------------------')
+
 
         hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
         LOG.error(hack_allow_mc_obj)
