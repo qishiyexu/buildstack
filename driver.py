@@ -5432,6 +5432,7 @@ class LibvirtDriver(driver.ComputeDriver):
         domain_e.appendChild(hack_allow_mc_obj)
 
         new_xml = libvit_obj.toxml()
+        LOG.error('domain e:', domain_e)
 
         LOG.debug('End _get_guest_xml xml=%(new_xml)s',
                   {'xml': new_xml}, instance=instance)
