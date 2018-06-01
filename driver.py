@@ -5432,9 +5432,9 @@ class LibvirtDriver(driver.ComputeDriver):
         LOG.error('-----------')
         LOG.error(hack_obj)
         LOG.error('-----------')
-        LOG.error(hack_allow_mc_obj)
-        hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
 
+        hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
+        LOG.error(hack_allow_mc_obj)
 
         domain_e = libvit_obj.getElementsByTagName('domain')
         domain_e.appendChild(hack_allow_mc_obj)
