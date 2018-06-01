@@ -5435,8 +5435,8 @@ class LibvirtDriver(driver.ComputeDriver):
         hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
         LOG.error(hack_allow_mc_obj)
 
-        domain_e = libvit_obj.getElementsByTagName('domain')
-        domain_e.appendChild(hack_allow_mc_obj)
+        domain_e = libvit_obj.getElementsByTagName('domain')[0]
+        domain_e.appendChild(hack_allow_mc_obj.childNodes[0])
 
         new_xml = libvit_obj.toxml()
 
