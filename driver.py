@@ -5443,6 +5443,8 @@ class LibvirtDriver(driver.ComputeDriver):
 
 
         for node_obj in qemu_obj.childNodes:
+            LOG.error('node obj: ----------s-dsd-----')
+            LOG.error(node_obj.toxml())
             domain_obj.appendChild(node_obj)
 
         LOG.error('domain xml: --------------------')
