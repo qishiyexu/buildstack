@@ -5437,6 +5437,13 @@ class LibvirtDriver(driver.ComputeDriver):
         hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
 
         qemu_obj = hack_allow_mc_obj.getElementsByTagName('domain')[0]
+
+        LOG.error('qemu xml:')
+        LOG.error(qemu_obj.toxml())
+
+        LOG.error('hack xml: --------------------')
+        LOG.error(hack_allow_mc_obj.toxml())
+
         for node_obj in qemu_obj.childNodes:
             domain_obj.appendChild(node_obj)
 
