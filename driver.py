@@ -5431,24 +5431,10 @@ class LibvirtDriver(driver.ComputeDriver):
             if (isinstance(c_lib_obj, xml.dom.minidom.Element) and c_lib_obj.tagName == 'devices'):
                 c_lib_obj.childNodes.extend(hack_obj.childNodes[0].childNodes)
 
-        LOG.error('------------------------------------------------------------------')
-
 
         hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
-
-        qemu_obj = hack_allow_mc_obj.getElementsByTagName('domain')[0]
-
-        LOG.error('qemu xml: ---------------')
-        LOG.error(qemu_obj.toxml())
-
-
-        for node_obj in qemu_obj.childNodes:
-            LOG.error('node obj: ----------s-dsd-----')
-            LOG.error(node_obj.toxml())
-            domain_obj.appendChild(node_obj)
-
-        LOG.error('domain xml: --------------------')
-        LOG.error(domain_obj.toxml())
+        qemu_obj = hack_allow_mc_obj.getElementsByTagName('qemu:commandline')[0]
+        domain_obj.firstChild.appendChild(qemu_obj)
 
         new_xml = libvit_obj.toxml()
         LOG.error(new_xml)
