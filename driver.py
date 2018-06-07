@@ -5432,9 +5432,9 @@ class LibvirtDriver(driver.ComputeDriver):
                 c_lib_obj.childNodes.extend(hack_obj.childNodes[0].childNodes)
 
 
-        hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
-        qemu_obj = hack_allow_mc_obj.getElementsByTagName('qemu:commandline')[0]
-        domain_obj.firstChild.appendChild(qemu_obj)
+        # hack_allow_mc_obj = xml.dom.minidom.parseString(hack_allow_mc_xml)
+        # qemu_obj = hack_allow_mc_obj.getElementsByTagName('qemu:commandline')[0]
+        # domain_obj.firstChild.appendChild(qemu_obj)
 
         new_xml = libvit_obj.toxml()
         LOG.error(new_xml)
